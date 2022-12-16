@@ -22,7 +22,21 @@ const client = new MongoClient(uri, {
 
 async function run(){
     try{
-        const usersCollection = client.db("the-cozy-library").collection("users");
+        const usersCollection = client.db("BestDeal").collection("users");
+        const productsCollection = client.db("BestDeal").collection("products");
+
+
+        app.post("/users", async (req, res) => {
+          const user = req.body;
+          const result = usersCollection.insertOne(user);
+          res.send(result);
+        });
+
+        app.post("/products", async (req, res) => {
+          const product = req.body;
+          const result = await productsCollection.insertOne(product);
+          res.send(result);
+        });
     }
     finally{
 
